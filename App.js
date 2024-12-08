@@ -1,20 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
-export default function App() {
+import TelaPerfil from "./componentes/TelaPerfil";
+import TelaContato from "./componentes/TelaContato";
+
+const Tabs = createBottomTabNavigator();
+
+export default function App () {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    <NavigationContainer>
+      <Tabs.Navigator 
+        screenOptions={{
+          tabBarStyle: { backgroundColor: "#fff"},
+          tabBarLabelStyle:{ fontSize: 16},
+          tabBarLabelPosition: 'beside-icon',
+          tabBarActiveBackgroundColor: "#013987",
+          tabBarActiveTintColor: '#fff',
+          tabBarInactiveTintColor: "#013987",
+        }}
+      >
+        <Tabs.Screen 
+          name="Perfil" 
+          component = { TelaPerfil }
+          options={{
+            tabBarIcon: ({ color }) => (
+              <FontAwesome name="user" color={ color } size={ 24 } />
+            ),
+          }}
+        />
+        
+        <Tabs.Screen 
+          name="Contato" 
+          component = { TelaContato } 
+          options={{
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="contacts" color={ color } size={24} />
+            ),
+          }}
+        />
+      </Tabs.Navigator>
+    </NavigationContainer>
+  )
+};
